@@ -1,13 +1,138 @@
+NAME
+    Mover::Date::Navigation - Mover Date Navigation
+
+VERSION
+    version 0.001
+
+SYNOPSIS
+     use Mover::Date::Navigation;  # To traverse across Movers Dates and Times
+
+     The the attributes can be sent as named paramaters or as a single HashRef
+     with all the elements.
+
+     my $MoverDateNav = Mover::Date::Navigation->new(
+        date_unit        => $date_unit,  # year|month|week|day|hour|minute
+        delta_date_units => $int,        # Number of $date_unit's from base_date
+        before_or_after  => $before_or_after,  # q/after|before/
+        base_date        => $base_date # DateTime, yyyymmdd mmddyyyy, ddmmyyyy,
+                                         ISO-1860 or even NaturalDateTime format)
+        base_tz          => q/UTC/    # This is the default
+     ); 
+
+     #--Get the start and end DateTime Objects or the selected range
+
+     my ($FirstDateTime, $LastDateTime )= @{$MoverDateNav->get_date_range()};
 
 
-This archive contains the distribution Mover-Date-Navigation,
-version 0.001:
+     #--- Where we can go next relative to the current position
 
-  Mover Date Navigation 
+     my ( $prev_params, $next_params ) =
+          $MoverDateNav->get_previous_and_next_date_range_params();
 
-This software is copyright (c) 2013 by Austin Kenny.
+     #    $prev_params = {
+     #        date_unit        => $self->date_unit(),
+     #        delta_date_units => 1,
+     #        before_or_after  => q/before/,
+     #        base_date        => 2013-09-12T12:24:22
+     #    };
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+     #    $next_params = {
+     #        date_unit        => $self->date_unit(),
+     #        delta_date_units => 1,
+     #        before_or_after  => q/after/,
+     #        base_date        => 2013-09-12T12:24:22
+     #    };
 
+  
+ Include role Convert::Input::To::DateTime to convert input
+ in any format to a DateTime date object.
+  date_unit
+ String to represent date units,  year, month, week, day, hour, minute.
+ Is a 'rw' attribute.
+  delta_date_units
+ Number of days before or after a specific base date
+ Defaults to 0.
+ Is a 'rw' attribute.
+  before_or_after
+ String to represent before_or_after a particular date.
+ q/before/ or q/after/.
+ Defaults to q/after/.
+ Is a 'rw' attribute.
+  base_date
+ Starting point for the date navigation.
+ MoverDateTimeHref object. 
+ Uses role Convert::Input::To::DateTime to convert input to a DateTime
+ object which is then converted to a DateTime hashref..
+ It will accept and coerce a date in String, HashRef or DateTime format.
+ This is a 'rw' attribute.
+  base_tz
+ The time zone for the base_date.
+ Defaults to 'UTC'
+ Is a 'rw' attribute.
+  get_now_dt
+ Create a DateTime object with time zone set to the base time zone.
+ my $MoverNowDt = $MoverDate->get_now_dt();
+  get_delta_datetime
+ Returns a DateTime Object which is delta_date_units before_or_after
+ a given base_date or DateTime->now().
+ Assumes that all the required Mover::Date::Navigation Attributes are 
+ properly set. (Maybe thats too big of an assumption.)
+     my $FutureDate = $MoverNav->get_delta_datetime();
+
+  get_date_range
+ Returns an array ref of two DateTime objects, one for the start and one
+ end of the requested date_period(year, month, week).
+ For day, hour or minute, only one truncated DateTime object will be
+ included in the returned ArrayRef.
+     my $date_range_arr =  $MoverDateNav->get_date_range();
+
+  get_previous_and_next_date_range_params
+ Having got the relevant date range, now set up the parameters for the date range
+ before and after the current date range. 
+ This will make it easier for the requesting application to create links to the previous
+ and next time periods.
+ Returns an array with two hash refs (\%prev_params, \%next_params).
+ my @prev_and_next_params = $MoverDate->get_previous_and_next_date_range_params();
+  around qw/ get_date_range get_delta_datetime /
+ Validate the calling parameters of these date navigation methods.
+ If the BaseDate is in DateTime format, use the cloned DateTime version.
+ If the BaseDate is not in DateTime format, then convert from whatever date
+ format to DateTime or else get DateTime now.
+NAME
+    Mover::Date::Navigation - Moose Object For Traversing Across Dates And
+    Times
+
+DESCRIPTION
+ Used to get dates, date ranges in the future or past, relative to a given
+ base date.
+AUTHOR
+    austin,,,
+
+VERSION
+    Version 0.01
+
+SEE ALSO
+    *
+         L<Convert::Input::To::DateTime>
+
+    *
+         L<MooseX::Types>
+
+    *
+         L<DateTime>
+
+    *
+         L<Mover::Date::Types>
+
+    *
+         L<Mover.pm>
+
+AUTHOR
+    Austin Kenny <aibistin.cionnaith@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Austin Kenny.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 
