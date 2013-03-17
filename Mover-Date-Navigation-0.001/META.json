@@ -1,0 +1,65 @@
+{
+   "abstract" : "Mover Date Navigation ",
+   "author" : [
+      "Austin Kenny <aibistin.cionnaith@gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Dist::Zilla version 4.300030, CPAN::Meta::Converter version 2.120921",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Mover-Date-Navigation",
+   "prereqs" : {
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.30"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Convert::Input::To::DateTime" : "0",
+            "Log::Any" : "0",
+            "Modern::Perl" : "0",
+            "Moose" : "0",
+            "Moose::Util::TypeConstraints" : "0",
+            "MooseX::Types::Common::Numeric" : "0",
+            "MooseX::Types::Common::String" : "0",
+            "MooseX::Types::Moose" : "0",
+            "Mover::Date::Types" : "0",
+            "Readonly" : "0",
+            "Scalar::Util" : "0",
+            "String::Util" : "0",
+            "Try::Tiny" : "0",
+            "autodie" : "0",
+            "namespace::autoclean" : "0"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Carp" : "0",
+            "Data::Dump" : "0",
+            "DateTime" : "0",
+            "File::Spec::Functions" : "0",
+            "FindBin" : "0",
+            "List::MoreUtils" : "0",
+            "List::Util" : "0",
+            "POSIX" : "0",
+            "Smart::Comments" : "0",
+            "Test::Exception" : "0",
+            "Test::Moose::More" : "0",
+            "Test::More" : "0",
+            "perl" : "5.006",
+            "strict" : "0",
+            "vars" : "0",
+            "warnings" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "0.001"
+}
+
